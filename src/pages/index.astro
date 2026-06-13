@@ -1,0 +1,188 @@
+---
+// src/pages/index.astro
+---
+
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>d7 | Bio</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <style>
+    .fade-transition {
+      transition: opacity 2.5s ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="bg-[#050505] text-white h-screen w-screen overflow-hidden m-0 font-sans selection:bg-purple-500/40">
+
+  <!-- BG vid -->
+  <video
+    id="bg-video"
+    class="fixed top-0 left-0 w-full h-full object-cover z-0 opacity-0 fade-transition pointer-events-none"
+    loop
+    muted
+    playsinline>
+
+    <source src="/video-hevc.mp4" type="video/mp4; codecs=hvc1.1.6.L93.B0" />
+
+    <source src="/video-hevc.mp4" type="video/mp4; codecs=hev1.1.6.L93.B0" />
+
+    <source src="/video.webm" type="video/webm" />
+
+  </video>
+
+  <!-- BG music -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="/music.ogg" type="audio/ogg" />
+  </audio>
+
+  <!-- Main content -->
+  <main id="main-content" class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4">
+
+    <!-- Glassmorph card -->
+    <div class="relative bg-black/40 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-lg w-full text-center overflow-hidden group">
+
+      <!-- Huyna svetyaschayasa-->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-white/10 to-transparent blur-2xl pointer-events-none"></div>
+
+      <!-- Avatar -->
+        <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full mb-5 p-[2px] shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-transform duration-500 hover:scale-105">
+        <img
+            src="/avatar.webp"
+            alt="Avatar"
+            class="w-full h-full object-cover rounded-full"
+        />
+        </div>
+
+      <!-- Name with gradient -->
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 tracking-tight">
+        d7
+      </h1>
+
+      <!-- Short bio -->
+      <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
+        Привет! Я разработчик. Пишу код, увлекаюсь современными технологиями и люблю создавать сложные системы.
+      </p>
+
+      <!-- Tech stacks -->
+      <div class="flex flex-wrap justify-center gap-2.5 mb-8">
+        <span class="px-3 py-1 text-[13px] font-medium bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 rounded-lg shadow-sm">JS</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-lg shadow-sm">Python</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 rounded-lg shadow-sm">C/C++</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-orange-500/10 text-orange-300 border border-orange-500/20 rounded-lg shadow-sm">Kotlin</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-purple-500/10 text-purple-300 border border-purple-500/20 rounded-lg shadow-sm">Astro</span>
+      </div>
+
+      <!-- Contact info -->
+      <div class="space-y-3">
+        <!-- GitHub -->
+        <a href="https://github.com/danya2271" target="_blank" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="font-medium tracking-wide">GitHub</span>
+        </a>
+
+        <!-- Telegram -->
+        <a href="https://t.me/da2271" target="_blank" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-50 transition-all duration-300 hover:scale-[1.02]">
+          <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+          <span class="font-medium tracking-wide">Telegram</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Music control button -->
+  <button
+    id="music-toggle-btn"
+    class="fixed bottom-6 right-6 z-20 p-4 rounded-full bg-black/40 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all duration-500 opacity-0 fade-transition shadow-lg cursor-pointer"
+    aria-label="Переключатель музыки"
+  >
+    <svg id="music-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Icon: sound muted -->
+      <path id="mute-path" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+
+      <!-- Icon: sound unmuted -->
+      <path id="unmute-path" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+    </svg>
+  </button>
+
+  <script>
+    window.addEventListener('load', () => {
+    setTimeout(() => {
+      const video = document.getElementById('bg-video') as HTMLVideoElement;
+      const audio = document.getElementById('bg-audio') as HTMLAudioElement;
+      const toggleBtn = document.getElementById('music-toggle-btn') as HTMLButtonElement;
+      const mutePath = document.getElementById('mute-path');
+      const unmutePath = document.getElementById('unmute-path');
+
+      function setIconState(isPlaying: boolean) {
+        if (isPlaying) {
+          mutePath?.classList.add('hidden');
+          unmutePath?.classList.remove('hidden');
+        } else {
+          mutePath?.classList.remove('hidden');
+          unmutePath?.classList.add('hidden');
+        }
+      }
+
+      if (video) {
+        video.classList.remove('opacity-0');
+        video.play().catch(e => console.error("Ошибка видео:", e));
+      }
+      if (toggleBtn) {
+        toggleBtn.classList.remove('opacity-0');
+      }
+
+      setIconState(false);
+
+      if (toggleBtn && audio) {
+        toggleBtn.addEventListener('click', () => {
+          if (audio.paused) {
+            audio.volume = 0;
+            audio.play().then(() => {
+              fadeInAudio(audio, 0.4, 1000);
+              setIconState(true);
+            });
+          } else {
+            audio.pause();
+            setIconState(false);
+          }
+        });
+      }
+    }, 2000);
+  });
+
+  function fadeInAudio(audioObj: HTMLAudioElement, targetVolume: number, duration: number) {
+    const steps = 20;
+    const stepTime = duration / steps;
+    const volumeStep = targetVolume / steps;
+    let currentVolume = 0;
+
+    const interval = setInterval(() => {
+      currentVolume += volumeStep;
+      if (currentVolume >= targetVolume) {
+        audioObj.volume = targetVolume;
+        clearInterval(interval);
+      } else {
+        audioObj.volume = currentVolume;
+      }
+    }, stepTime);
+  }
+
+    const btn = document.getElementById('unmute-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const audio = document.getElementById('bg-audio') as HTMLAudioElement;
+        if (audio) {
+          audio.volume = 0;
+          audio.play();
+          fadeInAudio(audio, 0.4, 1000);
+        }
+        btn.classList.add('opacity-0');
+        setTimeout(() => btn.classList.add('hidden'), 500);
+      });
+    }
+  </script>
+</body>
+</html>
