@@ -2,186 +2,662 @@
 // src/pages/index.astro
 ---
 
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <title>d7 | Bio</title>
   <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Set the document language as early as possible to reduce language flicker. -->
+  <script is:inline>
+    (() => {
+      const browserLanguage = navigator.languages?.[0] || navigator.language || 'en';
+      document.documentElement.lang = browserLanguage.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+    })();
+  </script>
+
   <style>
     .fade-transition {
       transition: opacity 2.5s ease-in-out;
     }
+
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+    }
   </style>
 </head>
 
-<body class="bg-[#050505] text-white h-screen w-screen overflow-hidden m-0 font-sans selection:bg-purple-500/40">
-
-  <!-- BG vid -->
+<body class="bg-[#050505] text-white min-h-screen w-screen overflow-hidden m-0 font-sans selection:bg-purple-500/40">
+  <!-- Background video -->
   <video
     id="bg-video"
     class="fixed top-0 left-0 w-full h-full object-cover z-0 opacity-0 fade-transition pointer-events-none"
     loop
     muted
     playsinline>
-
     <source src="/video-hevc.mp4" type="video/mp4; codecs=hvc1.1.6.L93.B0" />
-
     <source src="/video-hevc.mp4" type="video/mp4; codecs=hev1.1.6.L93.B0" />
-
     <source src="/video.webm" type="video/webm" />
-
   </video>
 
-  <!-- BG music -->
+  <!-- Background music -->
   <audio id="bg-audio" loop preload="auto">
     <source src="/music.ogg" type="audio/ogg" />
   </audio>
 
   <!-- Main content -->
-  <main id="main-content" class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4">
-
-    <!-- Glassmorph card -->
-    <div class="relative bg-black/40 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-lg w-full text-center overflow-hidden group">
-
-      <!-- Huyna svetyaschayasa-->
+  <main id="main-content" class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-4 py-4">
+    <div class="custom-scrollbar relative bg-black/40 backdrop-blur-2xl border border-white/10 p-6 md:p-10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto text-center group">
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-white/10 to-transparent blur-2xl pointer-events-none"></div>
 
       <!-- Avatar -->
-        <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full mb-5 p-[2px] shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-transform duration-500 hover:scale-105">
-        <img
-            src="/avatar.webp"
-            alt="Avatar"
-            class="w-full h-full object-cover rounded-full"
-        />
-        </div>
+      <div class="relative w-24 h-24 mx-auto bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full mb-5 p-[2px] shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-transform duration-500 hover:scale-105">
+        <img src="/avatar.webp" alt="Avatar" class="w-full h-full object-cover rounded-full" />
+      </div>
 
-      <!-- Name with gradient -->
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 tracking-tight">
+      <h1 class="relative text-3xl md:text-4xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 tracking-tight">
         d7
       </h1>
 
-      <!-- Short bio -->
-      <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
-        Привет! Я разработчик. Пишу код, увлекаюсь современными технологиями и люблю создавать сложные системы.
+      <p class="relative text-sm font-medium text-purple-200/90 mb-3" data-i18n="headline">
+        Middle Android Developer · Maintainer · Systems Developer · Kernel Hacker
       </p>
 
-      <!-- Tech stacks -->
-      <div class="flex flex-wrap justify-center gap-2.5 mb-8">
+      <p class="relative text-gray-300 mb-5 text-sm md:text-base leading-relaxed" data-i18n="shortBio">
+        I work where software meets the metal: custom Android kernels, firmware bring-up,
+        OS tuning, performance optimization and low-level systems development.
+      </p>
+
+      <p class="relative text-xs text-gray-400 mb-5" data-i18n="languages">
+        Russian — Native · English — B2–C1 · Spanish — Very basic
+      </p>
+
+      <!-- Tech stack -->
+      <div class="relative flex flex-wrap justify-center gap-2.5 mb-5">
         <span class="px-3 py-1 text-[13px] font-medium bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 rounded-lg shadow-sm">JS</span>
         <span class="px-3 py-1 text-[13px] font-medium bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-lg shadow-sm">Python</span>
         <span class="px-3 py-1 text-[13px] font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 rounded-lg shadow-sm">C/C++</span>
         <span class="px-3 py-1 text-[13px] font-medium bg-orange-500/10 text-orange-300 border border-orange-500/20 rounded-lg shadow-sm">Kotlin</span>
         <span class="px-3 py-1 text-[13px] font-medium bg-purple-500/10 text-purple-300 border border-purple-500/20 rounded-lg shadow-sm">Astro</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-green-500/10 text-green-300 border border-green-500/20 rounded-lg shadow-sm">Android Kernel</span>
+        <span class="px-3 py-1 text-[13px] font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 rounded-lg shadow-sm">AOSP</span>
+      </div>
+
+      <!-- Main drawers -->
+      <div class="relative space-y-3 mb-5">
+        <button
+          id="kernel-drawer-open"
+          type="button"
+          class="flex items-center justify-between gap-4 w-full px-4 py-3.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 hover:scale-[1.02] text-left"
+          aria-controls="kernel-drawer"
+          aria-expanded="false">
+          <span>
+            <span class="block text-sm font-semibold text-purple-100" data-i18n="kernelButtonTitle">Android Kernel & Firmware</span>
+            <span class="block mt-0.5 text-xs text-gray-400" data-i18n="kernelButtonDescription">Devices, ROMs, kernels and repositories</span>
+          </span>
+          <svg class="w-5 h-5 shrink-0 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+
+        <button
+          id="support-drawer-open"
+          type="button"
+          class="flex items-center justify-between gap-4 w-full px-4 py-3.5 rounded-xl bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/20 hover:border-pink-400/40 transition-all duration-300 hover:scale-[1.02] text-left"
+          aria-controls="support-drawer"
+          aria-expanded="false">
+          <span>
+            <span class="block text-sm font-semibold text-pink-100" data-i18n="supportButtonTitle">Support my work</span>
+            <span class="block mt-0.5 text-xs text-gray-400" data-i18n="supportButtonDescription">GRAM, USDT and DonationAlerts</span>
+          </span>
+          <svg class="w-5 h-5 shrink-0 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21s-7-4.35-7-10a4 4 0 017-2.65A4 4 0 0119 11c0 5.65-7 10-7 10z" />
+          </svg>
+        </button>
       </div>
 
       <!-- Contact info -->
-      <div class="space-y-3">
-        <!-- GitHub -->
-        <a href="https://github.com/danya2271" target="_blank" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
-          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <div class="relative space-y-3">
+        <a href="https://github.com/danya2271" target="_blank" rel="noreferrer" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           <span class="font-medium tracking-wide">GitHub</span>
         </a>
 
-        <!-- Telegram -->
-        <a href="https://t.me/da2271" target="_blank" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-50 transition-all duration-300 hover:scale-[1.02]">
-          <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+        <a href="https://t.me/da2271" target="_blank" rel="noreferrer" class="flex items-center justify-center gap-3 w-full py-3.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-50 transition-all duration-300 hover:scale-[1.02]">
+          <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
           <span class="font-medium tracking-wide">Telegram</span>
         </a>
       </div>
     </div>
   </main>
 
+  <!-- Android development drawer -->
+  <div id="kernel-drawer" class="fixed inset-0 z-40 pointer-events-none" aria-hidden="true">
+    <button
+      id="kernel-drawer-backdrop"
+      type="button"
+      class="absolute inset-0 w-full h-full bg-black/0 backdrop-blur-none transition-all duration-300 cursor-default"
+      data-i18n-aria-label="closeKernelDetails">
+    </button>
+
+    <section
+      id="kernel-drawer-panel"
+      class="custom-scrollbar absolute inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl max-h-[88dvh] overflow-y-auto translate-y-full rounded-t-3xl border-x border-t border-white/10 bg-[#09090b]/95 backdrop-blur-2xl shadow-[0_-30px_80px_rgba(0,0,0,0.65)] transition-transform duration-500 ease-out"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="kernel-drawer-title">
+
+      <div class="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#09090b]/90 backdrop-blur-2xl px-5 py-4 md:px-8">
+        <div class="min-w-0 text-left">
+          <p class="text-xs uppercase tracking-[0.2em] text-purple-300" data-i18n="developmentHistory">Development history</p>
+          <h2 id="kernel-drawer-title" class="truncate text-xl md:text-2xl font-bold text-white" data-i18n="kernelDrawerTitle">
+            Android Kernels & Custom Firmware
+          </h2>
+        </div>
+
+        <button id="kernel-drawer-close" type="button" class="shrink-0 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors" data-i18n-aria-label="close">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-8 px-5 py-6 md:px-8 md:py-8 text-left">
+        <section>
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-400" data-i18n="profile">Profile</h3>
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <p class="leading-relaxed text-gray-200" data-i18n="kernelProfile">
+              I develop and maintain custom Android kernels and firmware builds, work on device bring-up,
+              performance and battery tuning, scheduler and memory configuration, and low-level platform fixes.
+              I also started KuroNekoDroid / KNXDroid, an optimized Android-based system project that is currently
+              inactive because of limited free time.
+            </p>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-purple-500/20 bg-purple-500/10 px-2.5 py-1 text-xs text-purple-200" data-i18n="kernelBringup">Kernel bring-up</span>
+              <span class="rounded-lg border border-blue-500/20 bg-blue-500/10 px-2.5 py-1 text-xs text-blue-200" data-i18n="customRoms">AOSP / Custom ROMs</span>
+              <span class="rounded-lg border border-green-500/20 bg-green-500/10 px-2.5 py-1 text-xs text-green-200" data-i18n="performanceTuning">Performance tuning</span>
+              <span class="rounded-lg border border-orange-500/20 bg-orange-500/10 px-2.5 py-1 text-xs text-orange-200" data-i18n="powerOptimization">Power optimization</span>
+              <span class="rounded-lg border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs text-cyan-200" data-i18n="deviceMaintenance">Device maintenance</span>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-400" data-i18n="activeDevelopment">Active development</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <article class="rounded-2xl border border-green-500/20 bg-green-500/[0.06] p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h4 class="font-semibold text-white">OnePlus 10 Pro</h4>
+                  <p class="mt-1 text-sm text-gray-300" data-i18n="oneplus10Current">Main device · crDroid Android 16</p>
+                </div>
+                <span class="rounded-full border border-green-400/20 bg-green-400/10 px-2 py-1 text-[11px] font-medium text-green-300" data-i18n="active">Active</span>
+              </div>
+              <p class="mt-3 text-sm text-purple-200">KKNX-V13.x.x</p>
+            </article>
+
+            <article class="rounded-2xl border border-green-500/20 bg-green-500/[0.06] p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h4 class="font-semibold text-white">POCO F4</h4>
+                  <p class="mt-1 text-sm text-gray-300">KNXDroid Android 16</p>
+                </div>
+                <span class="rounded-full border border-green-400/20 bg-green-400/10 px-2 py-1 text-[11px] font-medium text-green-300" data-i18n="active">Active</span>
+              </div>
+              <p class="mt-3 text-sm text-purple-200">KKNX-V17.x.x</p>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-400" data-i18n="archivedDevices">Previous / archived devices</h3>
+          <div class="grid gap-2 sm:grid-cols-2">
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">OnePlus 7</p><p class="mt-1 text-xs text-gray-400">YAAP 16 · KKNX-V0.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Google Pixel 6</p><p class="mt-1 text-xs text-gray-400">KNXDroid 16.0 · KKNX-V0.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Realme 8i</p><p class="mt-1 text-xs text-gray-400">LineageOS 14 · KKNX-V0.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Redmi 9C</p><p class="mt-1 text-xs text-gray-400">KNXDroid 13 · KKNX-V3.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Xiaomi Mi 9T</p><p class="mt-1 text-xs text-gray-400">Project Blaze Android 14 · KKNX-V3.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">OnePlus 10 Pro</p><p class="mt-1 text-xs text-gray-400">KNXDroid 15 · KKNX-V9.x.x</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Huawei Y6 Prime 2018</p><p class="mt-1 text-xs text-gray-400">Huawei MSM8917 / MSM8937 family</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Redmi 8A</p><p class="mt-1 text-xs text-gray-400">SDM439 · KKNX-V1.x.x · KuroNekoDroid</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">iPhone 5s / 6</p><p class="mt-1 text-xs text-gray-400" data-i18n="iphoneScripts">Debloating and maintenance scripts</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5"><p class="font-medium text-white">Redmi 3S</p><p class="mt-1 text-xs text-gray-400">LineageOS 22 · KKNX-V0.x.x · <span data-i18n="dropped">Dropped</span></p></div>
+            <div class="rounded-xl border border-white/10 bg-white/[0.035] p-3.5 sm:col-span-2"><p class="font-medium text-white">Samsung Galaxy A21s</p><p class="mt-1 text-xs text-gray-400">Modified AOSP 15 · KKNX-V0.x.x</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-400" data-i18n="projectsRepositories">Projects & repositories</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <a href="https://github.com/KNXDroid" target="_blank" rel="noreferrer" class="rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] p-4 transition-colors hover:bg-purple-500/10">
+              <p class="font-semibold text-white">KNXDroid Organization</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="knxDescription">Custom Android-based system and device repositories</p>
+            </a>
+            <a href="https://github.com/danya2271/android_kernel_oneplus_sm8450" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07]">
+              <p class="font-semibold text-white">OnePlus SM8450 Kernel</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="oneplus10KernelSource">OnePlus 10 Pro kernel source</p>
+            </a>
+            <a href="https://github.com/danya2271/kernel_oneplus_sm8150" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07]">
+              <p class="font-semibold text-white">OnePlus SM8150 Kernel</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="oneplus7KernelWork">OnePlus 7 platform kernel work</p>
+            </a>
+            <a href="https://github.com/danya2271/android_kernel_realme_RMX2020" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07]">
+              <p class="font-semibold text-white">Realme RMX2020 Kernel</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="realmeKernelSource">Realme platform kernel source</p>
+            </a>
+            <a href="https://github.com/danya2271/android_kernel_xiaomi_sm6150" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07]">
+              <p class="font-semibold text-white">Xiaomi SM6150 Kernel</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="mi9tKernelWork">Xiaomi Mi 9T platform kernel work</p>
+            </a>
+            <a href="https://github.com/KNXDroid/xiaomi_sm8250_kernel" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07]">
+              <p class="font-semibold text-white">Xiaomi SM8250 Kernel</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="knxKernelRepository">KNXDroid kernel repository</p>
+            </a>
+            <a href="https://github.com/danya2271/kuroneko_r_mt6765" target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-colors hover:bg-white/[0.07] md:col-span-2">
+              <p class="font-semibold text-white">KuroNeko MT6765</p>
+              <p class="mt-1 text-sm text-gray-400" data-i18n="kuronekoDescription">KuroNekoDroid-related work for MediaTek MT6765 devices</p>
+            </a>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-400" data-i18n="contactsUpdates">Contacts & development updates</h3>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://t.me/da2271" target="_blank" rel="noreferrer" class="rounded-xl border border-blue-500/20 bg-blue-500/10 px-3.5 py-2 text-sm text-blue-200 transition-colors hover:bg-blue-500/20">Telegram: @da2271</a>
+            <a href="https://t.me/Kuroneko_Updates" target="_blank" rel="noreferrer" class="rounded-xl border border-purple-500/20 bg-purple-500/10 px-3.5 py-2 text-sm text-purple-200 transition-colors hover:bg-purple-500/20">KuroNeko Updates</a>
+            <span class="rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2 text-sm text-gray-300">Discord: danya2271</span>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <!-- Support drawer, separate from Android development -->
+  <div id="support-drawer" class="fixed inset-0 z-40 pointer-events-none" aria-hidden="true">
+    <button
+      id="support-drawer-backdrop"
+      type="button"
+      class="absolute inset-0 w-full h-full bg-black/0 backdrop-blur-none transition-all duration-300 cursor-default"
+      data-i18n-aria-label="closeSupportDetails">
+    </button>
+
+    <section
+      id="support-drawer-panel"
+      class="custom-scrollbar absolute inset-x-0 bottom-0 z-50 mx-auto w-full max-w-2xl max-h-[88dvh] overflow-y-auto translate-y-full rounded-t-3xl border-x border-t border-white/10 bg-[#09090b]/95 backdrop-blur-2xl shadow-[0_-30px_80px_rgba(0,0,0,0.65)] transition-transform duration-500 ease-out"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="support-drawer-title">
+
+      <div class="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#09090b]/90 backdrop-blur-2xl px-5 py-4 md:px-8">
+        <div class="min-w-0 text-left">
+          <p class="text-xs uppercase tracking-[0.2em] text-pink-300" data-i18n="donations">Donations</p>
+          <h2 id="support-drawer-title" class="truncate text-xl md:text-2xl font-bold text-white" data-i18n="supportDrawerTitle">Support my work</h2>
+        </div>
+
+        <button id="support-drawer-close" type="button" class="shrink-0 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors" data-i18n-aria-label="close">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-5 px-5 py-6 md:px-8 md:py-8 text-left">
+        <p class="leading-relaxed text-gray-300" data-i18n="supportIntro">
+          You can support my open-source development using one of the addresses below.
+        </p>
+
+        <div class="space-y-3">
+          <article class="rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] p-4">
+            <div class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs uppercase tracking-[0.14em] text-purple-300">GRAM</p>
+                <p class="mt-2 break-all font-mono text-sm text-gray-200">UQCyHi0Ywa9YlciiceWJUPRFiu8VLwlQ2pE8GYOO3UsbbgQq</p>
+              </div>
+              <button type="button" class="copy-wallet shrink-0 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs text-gray-200 transition-colors hover:bg-white/10" data-copy-value="UQCyHi0Ywa9YlciiceWJUPRFiu8VLwlQ2pE8GYOO3UsbbgQq" data-i18n="copy">Copy</button>
+            </div>
+          </article>
+
+          <article class="rounded-2xl border border-cyan-500/20 bg-cyan-500/[0.05] p-4">
+            <div class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs uppercase tracking-[0.14em] text-cyan-300">USDT TON</p>
+                <p class="mt-2 break-all font-mono text-sm text-gray-200">UQCyHi0Ywa9YlciiceWJUPRFiu8VLwlQ2pE8GYOO3UsbbgQq</p>
+              </div>
+              <button type="button" class="copy-wallet shrink-0 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs text-gray-200 transition-colors hover:bg-white/10" data-copy-value="UQCyHi0Ywa9YlciiceWJUPRFiu8VLwlQ2pE8GYOO3UsbbgQq" data-i18n="copy">Copy</button>
+            </div>
+          </article>
+
+          <article class="rounded-2xl border border-green-500/20 bg-green-500/[0.05] p-4">
+            <div class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs uppercase tracking-[0.14em] text-green-300">USDT TRC-20</p>
+                <p class="mt-2 break-all font-mono text-sm text-gray-200">TB7NCi33cKCVEZvyFxenbB2CQGyfVLRYMR</p>
+              </div>
+              <button type="button" class="copy-wallet shrink-0 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs text-gray-200 transition-colors hover:bg-white/10" data-copy-value="TB7NCi33cKCVEZvyFxenbB2CQGyfVLRYMR" data-i18n="copy">Copy</button>
+            </div>
+          </article>
+
+          <article class="rounded-2xl border border-blue-500/20 bg-blue-500/[0.05] p-4">
+            <div class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs uppercase tracking-[0.14em] text-blue-300">USDT ERC-20</p>
+                <p class="mt-2 break-all font-mono text-sm text-gray-200">0xef1809dfdef952168b1c7d7e44508fed9aef09e0</p>
+              </div>
+              <button type="button" class="copy-wallet shrink-0 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs text-gray-200 transition-colors hover:bg-white/10" data-copy-value="0xef1809dfdef952168b1c7d7e44508fed9aef09e0" data-i18n="copy">Copy</button>
+            </div>
+          </article>
+        </div>
+
+        <a href="https://www.donationalerts.com/r/danya277" target="_blank" rel="noreferrer" class="flex items-center justify-center rounded-xl border border-pink-500/20 bg-pink-500/10 px-4 py-3 font-medium text-pink-100 transition-colors hover:bg-pink-500/20">
+          DonationAlerts
+        </a>
+
+        <p class="text-xs leading-relaxed text-gray-500" data-i18n="networkWarning">
+          Please verify the selected asset and network before sending. Transfers made through an incompatible network may be lost.
+        </p>
+      </div>
+    </section>
+  </div>
+
   <!-- Music control button -->
   <button
     id="music-toggle-btn"
     class="fixed bottom-6 right-6 z-20 p-4 rounded-full bg-black/40 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all duration-500 opacity-0 fade-transition shadow-lg cursor-pointer"
-    aria-label="Переключатель музыки"
-  >
+    data-i18n-aria-label="musicToggle">
     <svg id="music-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <!-- Icon: sound muted -->
       <path id="mute-path" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-
-      <!-- Icon: sound unmuted -->
       <path id="unmute-path" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
     </svg>
   </button>
 
   <script>
-    window.addEventListener('load', () => {
-    setTimeout(() => {
-      const video = document.getElementById('bg-video') as HTMLVideoElement;
-      const audio = document.getElementById('bg-audio') as HTMLAudioElement;
-      const toggleBtn = document.getElementById('music-toggle-btn') as HTMLButtonElement;
-      const mutePath = document.getElementById('mute-path');
-      const unmutePath = document.getElementById('unmute-path');
+    type Language = 'en' | 'ru';
 
-      function setIconState(isPlaying: boolean) {
-        if (isPlaying) {
-          mutePath?.classList.add('hidden');
-          unmutePath?.classList.remove('hidden');
-        } else {
-          mutePath?.classList.remove('hidden');
-          unmutePath?.classList.add('hidden');
+    const translations: Record<Language, Record<string, string>> = {
+      en: {
+        headline: 'Middle Android Developer · Maintainer · Systems Developer · Kernel Hacker',
+        shortBio: 'I work where software meets the metal: custom Android kernels, firmware bring-up, OS tuning, performance optimization and low-level systems development.',
+        languages: 'Russian — Native · English — B2–C1 · Spanish — Very basic',
+        kernelButtonTitle: 'Android Kernel & Firmware',
+        kernelButtonDescription: 'Devices, ROMs, kernels and repositories',
+        supportButtonTitle: 'Support my work',
+        supportButtonDescription: 'GRAM, USDT and DonationAlerts',
+        developmentHistory: 'Development history',
+        kernelDrawerTitle: 'Android Kernels & Custom Firmware',
+        profile: 'Profile',
+        kernelProfile: 'I develop and maintain custom Android kernels and firmware builds, work on device bring-up, performance and battery tuning, scheduler and memory configuration, and low-level platform fixes. I also started KuroNekoDroid / KNXDroid, an optimized Android-based system project that is currently inactive because of limited free time.',
+        kernelBringup: 'Kernel bring-up',
+        customRoms: 'AOSP / Custom ROMs',
+        performanceTuning: 'Performance tuning',
+        powerOptimization: 'Power optimization',
+        deviceMaintenance: 'Device maintenance',
+        activeDevelopment: 'Active development',
+        oneplus10Current: 'Main device · crDroid Android 16',
+        active: 'Active',
+        archivedDevices: 'Previous / archived devices',
+        iphoneScripts: 'Debloating and maintenance scripts',
+        dropped: 'Dropped',
+        projectsRepositories: 'Projects & repositories',
+        knxDescription: 'Custom Android-based system and device repositories',
+        oneplus10KernelSource: 'OnePlus 10 Pro kernel source',
+        oneplus7KernelWork: 'OnePlus 7 platform kernel work',
+        realmeKernelSource: 'Realme platform kernel source',
+        mi9tKernelWork: 'Xiaomi Mi 9T platform kernel work',
+        knxKernelRepository: 'KNXDroid kernel repository',
+        kuronekoDescription: 'KuroNekoDroid-related work for MediaTek MT6765 devices',
+        contactsUpdates: 'Contacts & development updates',
+        donations: 'Donations',
+        supportDrawerTitle: 'Support my work',
+        supportIntro: 'You can support my open-source development using one of the addresses below.',
+        copy: 'Copy',
+        copied: 'Copied',
+        networkWarning: 'Please verify the selected asset and network before sending. Transfers made through an incompatible network may be lost.',
+        close: 'Close',
+        closeKernelDetails: 'Close Android development details',
+        closeSupportDetails: 'Close support details',
+        musicToggle: 'Toggle background music'
+      },
+      ru: {
+        headline: 'Android-разработчик уровня Middle · Мейнтейнер · Системный разработчик · Kernel Hacker',
+        shortBio: 'Я работаю на стыке программного обеспечения и железа: разрабатываю кастомные ядра и прошивки Android, занимаюсь bring-up устройств, настройкой ОС, оптимизацией производительности и низкоуровневой системной разработкой.',
+        languages: 'Русский — родной · Английский — B2–C1 · Испанский — начальный',
+        kernelButtonTitle: 'Ядра и прошивки Android',
+        kernelButtonDescription: 'Устройства, ROM, ядра и репозитории',
+        supportButtonTitle: 'Поддержать мою работу',
+        supportButtonDescription: 'GRAM, USDT и DonationAlerts',
+        developmentHistory: 'История разработки',
+        kernelDrawerTitle: 'Ядра Android и кастомные прошивки',
+        profile: 'Обо мне',
+        kernelProfile: 'Я разрабатываю и сопровождаю кастомные ядра Android и сборки прошивок, занимаюсь bring-up устройств, настройкой производительности и автономности, конфигурацией планировщика и памяти, а также низкоуровневыми исправлениями платформы. Я также создал KuroNekoDroid / KNXDroid — проект оптимизированной системы на базе Android, который сейчас неактивен из-за нехватки свободного времени.',
+        kernelBringup: 'Bring-up ядра',
+        customRoms: 'AOSP / кастомные ROM',
+        performanceTuning: 'Настройка производительности',
+        powerOptimization: 'Оптимизация энергопотребления',
+        deviceMaintenance: 'Сопровождение устройств',
+        activeDevelopment: 'Активная разработка',
+        oneplus10Current: 'Основное устройство · crDroid Android 16',
+        active: 'Активно',
+        archivedDevices: 'Предыдущие / архивные устройства',
+        iphoneScripts: 'Скрипты для деблоата и обслуживания',
+        dropped: 'Закрыто',
+        projectsRepositories: 'Проекты и репозитории',
+        knxDescription: 'Кастомная система на базе Android и репозитории устройств',
+        oneplus10KernelSource: 'Исходный код ядра для OnePlus 10 Pro',
+        oneplus7KernelWork: 'Работа над ядром платформы OnePlus 7',
+        realmeKernelSource: 'Исходный код ядра платформы Realme',
+        mi9tKernelWork: 'Работа над ядром платформы Xiaomi Mi 9T',
+        knxKernelRepository: 'Репозиторий ядра KNXDroid',
+        kuronekoDescription: 'Разработка KuroNekoDroid для устройств на MediaTek MT6765',
+        contactsUpdates: 'Контакты и новости разработки',
+        donations: 'Поддержка',
+        supportDrawerTitle: 'Поддержать мою работу',
+        supportIntro: 'Вы можете поддержать мою open-source разработку, используя один из адресов ниже.',
+        copy: 'Копировать',
+        copied: 'Скопировано',
+        networkWarning: 'Перед отправкой проверьте выбранный актив и сеть. Перевод через несовместимую сеть может быть потерян.',
+        close: 'Закрыть',
+        closeKernelDetails: 'Закрыть информацию об Android-разработке',
+        closeSupportDetails: 'Закрыть информацию о поддержке',
+        musicToggle: 'Переключить фоновую музыку'
+      }
+    };
+
+    const browserLanguage = navigator.languages?.[0] || navigator.language || 'en';
+    const currentLanguage: Language = browserLanguage.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+
+    function applyTranslations(language: Language) {
+      document.documentElement.lang = language;
+
+      document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((element) => {
+        const key = element.dataset.i18n;
+        if (key && translations[language][key]) {
+          element.textContent = translations[language][key];
         }
-      }
-
-      if (video) {
-        video.classList.remove('opacity-0');
-        video.play().catch(e => console.error("Ошибка видео:", e));
-      }
-      if (toggleBtn) {
-        toggleBtn.classList.remove('opacity-0');
-      }
-
-      setIconState(false);
-
-      if (toggleBtn && audio) {
-        toggleBtn.addEventListener('click', () => {
-          if (audio.paused) {
-            audio.volume = 0;
-            audio.play().then(() => {
-              fadeInAudio(audio, 0.4, 1000);
-              setIconState(true);
-            });
-          } else {
-            audio.pause();
-            setIconState(false);
-          }
-        });
-      }
-    }, 2000);
-  });
-
-  function fadeInAudio(audioObj: HTMLAudioElement, targetVolume: number, duration: number) {
-    const steps = 20;
-    const stepTime = duration / steps;
-    const volumeStep = targetVolume / steps;
-    let currentVolume = 0;
-
-    const interval = setInterval(() => {
-      currentVolume += volumeStep;
-      if (currentVolume >= targetVolume) {
-        audioObj.volume = targetVolume;
-        clearInterval(interval);
-      } else {
-        audioObj.volume = currentVolume;
-      }
-    }, stepTime);
-  }
-
-    const btn = document.getElementById('unmute-btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const audio = document.getElementById('bg-audio') as HTMLAudioElement;
-        if (audio) {
-          audio.volume = 0;
-          audio.play();
-          fadeInAudio(audio, 0.4, 1000);
-        }
-        btn.classList.add('opacity-0');
-        setTimeout(() => btn.classList.add('hidden'), 500);
       });
+
+      document.querySelectorAll<HTMLElement>('[data-i18n-aria-label]').forEach((element) => {
+        const key = element.dataset.i18nAriaLabel;
+        if (key && translations[language][key]) {
+          element.setAttribute('aria-label', translations[language][key]);
+        }
+      });
+    }
+
+    applyTranslations(currentLanguage);
+
+    interface DrawerElements {
+      root: HTMLElement;
+      panel: HTMLElement;
+      backdrop: HTMLElement;
+      openButton: HTMLButtonElement;
+      closeButton: HTMLButtonElement;
+    }
+
+    let activeDrawer: DrawerElements | null = null;
+
+    function createDrawer(prefix: string): DrawerElements | null {
+      const root = document.getElementById(`${prefix}-drawer`);
+      const panel = document.getElementById(`${prefix}-drawer-panel`);
+      const backdrop = document.getElementById(`${prefix}-drawer-backdrop`);
+      const openButton = document.getElementById(`${prefix}-drawer-open`);
+      const closeButton = document.getElementById(`${prefix}-drawer-close`);
+
+      if (
+        !(root instanceof HTMLElement) ||
+        !(panel instanceof HTMLElement) ||
+        !(backdrop instanceof HTMLElement) ||
+        !(openButton instanceof HTMLButtonElement) ||
+        !(closeButton instanceof HTMLButtonElement)
+      ) {
+        return null;
+      }
+
+      const drawer: DrawerElements = { root, panel, backdrop, openButton, closeButton };
+
+      const open = () => {
+        if (activeDrawer && activeDrawer !== drawer) {
+          closeDrawer(activeDrawer, false);
+        }
+
+        root.classList.remove('pointer-events-none');
+        root.setAttribute('aria-hidden', 'false');
+        openButton.setAttribute('aria-expanded', 'true');
+        activeDrawer = drawer;
+
+        requestAnimationFrame(() => {
+          panel.classList.remove('translate-y-full');
+          backdrop.classList.remove('bg-black/0', 'backdrop-blur-none');
+          backdrop.classList.add('bg-black/70', 'backdrop-blur-sm');
+        });
+
+        window.setTimeout(() => closeButton.focus(), 300);
+      };
+
+      openButton.addEventListener('click', open);
+      closeButton.addEventListener('click', () => closeDrawer(drawer));
+      backdrop.addEventListener('click', () => closeDrawer(drawer));
+
+      return drawer;
+    }
+
+    function closeDrawer(drawer: DrawerElements, restoreFocus = true) {
+      drawer.panel.classList.add('translate-y-full');
+      drawer.backdrop.classList.remove('bg-black/70', 'backdrop-blur-sm');
+      drawer.backdrop.classList.add('bg-black/0', 'backdrop-blur-none');
+      drawer.root.setAttribute('aria-hidden', 'true');
+      drawer.openButton.setAttribute('aria-expanded', 'false');
+
+      if (activeDrawer === drawer) {
+        activeDrawer = null;
+      }
+
+      window.setTimeout(() => {
+        drawer.root.classList.add('pointer-events-none');
+        if (restoreFocus) drawer.openButton.focus();
+      }, 500);
+    }
+
+    createDrawer('kernel');
+    createDrawer('support');
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && activeDrawer) {
+        closeDrawer(activeDrawer);
+      }
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.copy-wallet').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const value = button.dataset.copyValue;
+        if (!value) return;
+
+        try {
+          await navigator.clipboard.writeText(value);
+          button.textContent = translations[currentLanguage].copied;
+          window.setTimeout(() => {
+            button.textContent = translations[currentLanguage].copy;
+          }, 1400);
+        } catch (error) {
+          console.error('Unable to copy wallet address:', error);
+        }
+      });
+    });
+
+    window.addEventListener('load', () => {
+      window.setTimeout(() => {
+        const video = document.getElementById('bg-video') as HTMLVideoElement | null;
+        const audio = document.getElementById('bg-audio') as HTMLAudioElement | null;
+        const toggleButton = document.getElementById('music-toggle-btn') as HTMLButtonElement | null;
+        const mutePath = document.getElementById('mute-path');
+        const unmutePath = document.getElementById('unmute-path');
+
+        function setIconState(isPlaying: boolean) {
+          if (isPlaying) {
+            mutePath?.classList.add('hidden');
+            unmutePath?.classList.remove('hidden');
+          } else {
+            mutePath?.classList.remove('hidden');
+            unmutePath?.classList.add('hidden');
+          }
+        }
+
+        if (video) {
+          video.classList.remove('opacity-0');
+          video.play().catch((error) => console.error('Video playback error:', error));
+        }
+
+        toggleButton?.classList.remove('opacity-0');
+        setIconState(false);
+
+        if (toggleButton && audio) {
+          toggleButton.addEventListener('click', () => {
+            if (audio.paused) {
+              audio.volume = 0;
+              audio.play().then(() => {
+                fadeInAudio(audio, 0.4, 1000);
+                setIconState(true);
+              }).catch((error) => console.error('Audio playback error:', error));
+            } else {
+              audio.pause();
+              setIconState(false);
+            }
+          });
+        }
+      }, 2000);
+    });
+
+    function fadeInAudio(audio: HTMLAudioElement, targetVolume: number, duration: number) {
+      const steps = 20;
+      const stepTime = duration / steps;
+      const volumeStep = targetVolume / steps;
+      let currentVolume = 0;
+
+      const interval = window.setInterval(() => {
+        currentVolume += volumeStep;
+
+        if (currentVolume >= targetVolume) {
+          audio.volume = targetVolume;
+          window.clearInterval(interval);
+        } else {
+          audio.volume = currentVolume;
+        }
+      }, stepTime);
     }
   </script>
 </body>
